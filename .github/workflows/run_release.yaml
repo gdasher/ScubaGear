@@ -25,13 +25,14 @@ jobs:
       with:
         path: repo
     - name: Sign Scripts
+      shell: pwsh
       run: |
         $ErrorActionPreference = "Stop"
         $PSDefaultParameterValues['*:ErrorAction']='Stop'
         Set-StrictMode -Version Latest
 
         New-Item -ItemType directory -Path certificate
-        Set-Content -Path certificate\cert.txt -Value $env:CODESIGN_PFX
+        Set-Content -Path certificate\cert.txt -Value $env:CODESIGN_BASE64
         (Get-Item -Path certificate\cert.txt).Length | Write-Output
         certutil -decode certificate\cert.txt certificate\cert.pfx
 
