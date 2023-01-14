@@ -10,15 +10,17 @@ on:
         required: true
         type: string
 
-name: Build and Sign Release V2
+name: Build and Sign Release
+
 
 jobs:
-
   build-and-deploy:
     runs-on: windows-latest
     env:
       CODESIGN_PW: ${{ secrets.CODESIGN_PW }}
       CODESIGN_BASE64: ${{ secrets.CODESIGN_BASE64 }}
+    permissions:
+      contents: write
     steps:
     - name: Checkout
       uses: actions/checkout@v3
